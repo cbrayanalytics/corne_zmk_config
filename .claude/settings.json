@@ -1,0 +1,25 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f config/corne.keymap ] && python3 .claude/scripts/verify_keymap.py || true"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "AHEAD=$(git rev-list --count @{u}..HEAD 2>/dev/null || echo 0); [ \"$AHEAD\" -gt 0 ] && echo \"Reminder: $AHEAD unpushed commit(s). Run /build to push and trigger CI.\" || true"
+          }
+        ]
+      }
+    ]
+  }
+}
