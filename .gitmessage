@@ -1,0 +1,12 @@
+# Title: imperative, 50 chars max — what changed
+# e.g. "Remap Caps Lock to Escape on DVORAK layer"
+
+
+# Why: one sentence on the motivation (optional but preferred)
+# e.g. "Caps Lock is unused and Escape is more ergonomic from home row"
+
+
+# --- Atomic commit checklist ---
+# [ ] One logical change per commit
+# [ ] Binding count verified (36 per layer)
+# [ ] Layer referenced by #define name, not raw number
