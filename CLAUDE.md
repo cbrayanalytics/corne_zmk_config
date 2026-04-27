@@ -131,6 +131,14 @@ Then restore the `#include <dt-bindings/zmk/rgb.h>` line and `&rgb_ug` bindings 
 2. Add the layer block inside `keymap { ... }` with exactly 36 bindings
 3. Add a trigger key (`&mo N`, `&lt N KEY`, or `&tog N`) in an existing layer
 
+## Git Workflow
+
+Commit after each completed logical task — do not batch unrelated changes. Each commit should:
+
+1. Cover one change (one layer edit, one config flag, one refactor)
+2. Pass the 36-binding verification before committing
+3. Use the `.gitmessage` template format: imperative title + one-line why
+
 ## Verification
 
 After editing `corne.keymap`, confirm each layer still has exactly 36 bindings:
