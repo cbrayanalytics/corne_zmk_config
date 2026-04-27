@@ -34,10 +34,10 @@ To bump the ZMK version: change `revision` in `config/west.yml`.
 | # | Name | Access |
 |---|------|--------|
 | 0 | DVORAK | Default |
-| 1 | LOWER | Hold left-thumb middle key |
-| 2 | RAISE | Hold right-thumb SPACE |
-| 3 | ADJUST | Hold right-thumb BSPC |
-| 4 | QWERTY | `&tog QWERTY` on ADJUST row 1 col 0 |
+| 1 | QWERTY | `&tog QWERTY` on ADJUST row 2 col 0 |
+| 2 | LOWER | Hold left-thumb middle key |
+| 3 | RAISE | Hold right-thumb SPACE |
+| 4 | ADJUST | Hold right-thumb BSPC |
 
 ### Thumb cluster
 
@@ -61,7 +61,17 @@ Left pinky→index:  A=LGUI  O=LALT  E=LCTRL  U=LSHIFT
 Right index→pinky: H=RSHIFT  T=RCTRL  N=RALT  S=RGUI
 ```
 
-### LOWER (layer 1) — symbols, arrows, F-keys
+### QWERTY (layer 1) — toggled fallback
+
+```
+Q   W   E   R   T     Y   U   I   O   P
+A   S   D   F   G     H   J   K   L   ;
+Z   X   C   V   B     N   M   ,   .   /
+```
+
+Same home-row mods as DVORAK (ASDF left / JKL; right). Thumb keys are `&trans` — LOWER/RAISE/ADJUST momentary layers from DVORAK still work while QWERTY is active because they have higher layer numbers (2/3/4).
+
+### LOWER (layer 2) — symbols, arrows, F-keys
 
 ```
 `   [   {   \   -     =   /   }   ]   '
@@ -69,7 +79,7 @@ GUI ALT CTL SFT DEL   ←   ↓   ↑   →  RSFT
 F1  F2  F3  F4  F5    F6  F7  F8  F9  F10
 ```
 
-### RAISE (layer 2) — numbers, navigation
+### RAISE (layer 3) — numbers, navigation
 
 ```
 1   2   3   4   5     6   7   8   9   0
@@ -78,7 +88,7 @@ GUI ALT CTL SFT  -     -  SFT CTL ALT GUI
                        ENT
 ```
 
-### ADJUST (layer 3) — Bluetooth, media, system
+### ADJUST (layer 4) — Bluetooth, media, system
 
 ```
  -    -    -    -    -       -     -     -     -     -
@@ -86,17 +96,7 @@ TOG  BT2  BT1  BT0  BTCLR  C_PP  VOLU  VOLD  NEXT  PREV
 BOOT RST   -    -   SOFF    -     -     -    RST   BOOT
 ```
 
-`TOG` = `&tog QWERTY` (toggles layer 4 on/off)
-
-### QWERTY (layer 4) — toggled fallback
-
-```
-Q   W   E   R   T     Y   U   I   O   P
-A   S   D   F   G     H   J   K   L   ;
-Z   X   C   V   B     N   M   ,   .   /
-```
-
-Same home-row mods as QWERTY (ASDF left / JKL; right). Thumb keys are `&trans` — momentary layer switches from DVORAK (layer 0) still work while QWERTY is active.
+`TOG` = `&tog QWERTY` (toggles layer 1 on/off)
 
 ## Making Common Changes
 
