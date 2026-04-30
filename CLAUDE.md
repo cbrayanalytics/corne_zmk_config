@@ -54,7 +54,7 @@ A   O   E   U   I     D   H   T   N   S
 ;   Q   J   K   X     B   M   W   V   Z
 ```
 
-Home-row mods (balanced, tapping-term 250ms, require-prior-idle 150ms):
+Home-row mods (balanced, tapping-term 200ms, require-prior-idle 200ms):
 
 ```
 Left pinky→index:  A=LGUI  O=LALT  E=LCTRL  U=LSHIFT
@@ -144,15 +144,19 @@ Commit after each completed logical task — do not batch unrelated changes. Eac
 After editing `corne.keymap`, confirm each layer still has exactly 36 bindings:
 
 ```sh
-python3 -c "
-import re
-with open('config/corne.keymap') as f:
-    content = f.read()
-layers = re.findall(r'display-name = \"([^\"]+)\".*?bindings = <(.*?)>;', content, re.DOTALL)
-for name, block in layers:
-    print(f'{name}: {len(re.findall(chr(38) + r\"\S+\", block))} bindings')
-"
+python3 .claude/scripts/verify_keymap.py
 ```
+
+This script is also run automatically by a hook after every `Edit` or `Write` to `corne.keymap`.
+
+## Slash Commands
+
+| Command | Purpose |
+|---------|---------|
+| `/verify` | Run binding count check — flags any layer not at exactly 36 |
+| `/layers` | Print a human-readable summary of every layer |
+| `/build` | Push current branch and report GitHub Actions CI status |
+| `/timing` | Show current HRM timing values and tuning guidance |
 
 ## ZMK Key Name Reference
 
