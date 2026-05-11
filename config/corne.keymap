@@ -8,11 +8,13 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
-#define DVORAK 0
-#define QWERTY 1
-#define LOWER  2
-#define RAISE  3
-#define ADJUST 4
+#define DVORAK    0
+#define QWERTY    1
+#define LOWER     2
+#define RAISE     3
+#define ADJUST    4
+#define COLEMAK   5
+#define COLEMAKDH 6
 
 &mt {
     tapping-term-ms = <200>;
@@ -93,15 +95,45 @@
                 adjust_layer {
                         display-name = "Adjust";
 // -----------------------------------------------------------------------------------------
-// |         |         |         |         |         |   |         |         |         |         |         |
-// | QWERTY  | BT SEL2 | BT SEL1 | BT SEL0 | BT CLR  |   |  C_PP   | VOL UP  | VOL DN  | C_NEXT  | C_PREV  |
-// |  BOOT   |  RESET  |         |         | SOFT_OFF|   |         |         |         |  RESET  |  BOOT   |
+// |  CMK  |  CDH  |         |         |         |   |         |         |         |         |         |
+// | QWERTY| BT SEL2| BT SEL1| BT SEL0 | BT CLR  |   |  C_PP   | VOL UP  | VOL DN  | C_NEXT  | C_PREV  |
+// |  BOOT |  RESET |         |         | SOFT_OFF|   |         |         |         |  RESET  |  BOOT   |
 //                     |         |         |         |   |         |         |         |
                         bindings = <
-   &none             &none             &none             &none             &none                 &none             &none             &none             &none             &none
+   &tog COLEMAK      &tog COLEMAKDH    &none             &none             &none                 &none             &none             &none             &none             &none
    &tog QWERTY       &bt BT_SEL 2      &bt BT_SEL 1      &bt BT_SEL 0      &bt BT_CLR            &kp C_PP          &kp C_VOL_UP      &kp C_VOL_DN      &kp C_NEXT        &kp C_PREV
    &bootloader       &sys_reset        &none             &none             &soft_off             &none             &none             &none             &sys_reset        &bootloader
                                        &trans            &trans            &trans                &trans            &trans            &trans
+                        >;
+                };
+
+                colemak_layer {
+                        display-name = "Colemak";
+// -----------------------------------------------------------------------------------------
+// |  Q  |    W    |    F    |    P    |  G  |   |  J  |    L    |    U    |    Y    |    ;    |
+// | mt(LGUI)A | mt(LALT)R | mt(LCTL)S | mt(LSFT)T |  D  |   |  H  | mt(RSFT)N | mt(RCTL)E | mt(RALT)I | mt(RGUI)O |
+// |  Z  |    X    |    C    |    V    |  B  |   |  K  |    M    |    ,    |    .    |    /    |
+//             |     |     |     |   |     |     |     |
+                        bindings = <
+   &kp Q          &kp W          &kp F          &kp P          &kp G        &kp J      &kp L          &kp U          &kp Y        &kp SEMI
+   &mt LGUI A     &mt LALT R     &mt LCTRL S    &mt LSHIFT T   &kp D        &kp H      &mt RSHIFT N   &mt RCTRL E    &mt RALT I   &mt RGUI O
+   &kp Z          &kp X          &kp C          &kp V          &kp B        &kp K      &kp M          &kp COMMA      &kp DOT      &kp FSLH
+                                 &trans         &trans         &trans       &trans     &trans         &trans
+                        >;
+                };
+
+                colemakdh_layer {
+                        display-name = "ColemakDH";
+// -----------------------------------------------------------------------------------------
+// |  Q  |    W    |    F    |    P    |  B  |   |  J  |    L    |    U    |    Y    |    ;    |
+// | mt(LGUI)A | mt(LALT)R | mt(LCTL)S | mt(LSFT)T |  G  |   |  M  | mt(RSFT)N | mt(RCTL)E | mt(RALT)I | mt(RGUI)O |
+// |  Z  |    X    |    C    |    D    |  V  |   |  K  |    H    |    ,    |    .    |    /    |
+//             |     |     |     |   |     |     |     |
+                        bindings = <
+   &kp Q          &kp W          &kp F          &kp P          &kp B        &kp J      &kp L          &kp U          &kp Y        &kp SEMI
+   &mt LGUI A     &mt LALT R     &mt LCTRL S    &mt LSHIFT T   &kp G        &kp M      &mt RSHIFT N   &mt RCTRL E    &mt RALT I   &mt RGUI O
+   &kp Z          &kp X          &kp C          &kp D          &kp V        &kp K      &kp H          &kp COMMA      &kp DOT      &kp FSLH
+                                 &trans         &trans         &trans       &trans     &trans         &trans
                         >;
                 };
 
