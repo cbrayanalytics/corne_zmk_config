@@ -38,6 +38,8 @@ To bump the ZMK version: change `revision` in `config/west.yml`.
 | 2 | LOWER | Hold left-thumb middle key |
 | 3 | RAISE | Hold right-thumb SPACE |
 | 4 | ADJUST | Hold right-thumb BSPC |
+| 5 | COLEMAK | `&tog COLEMAK` on ADJUST row 1 col 0 |
+| 6 | COLEMAKDH | `&tog COLEMAKDH` on ADJUST row 1 col 1 |
 
 ### Thumb cluster
 
@@ -71,6 +73,26 @@ Z   X   C   V   B     N   M   ,   .   /
 
 Same home-row mods as DVORAK (ASDF left / JKL; right). Thumb keys are `&trans` — LOWER/RAISE/ADJUST momentary layers from DVORAK still work while QWERTY is active because they have higher layer numbers (2/3/4).
 
+### COLEMAK (layer 5) — toggled alternative
+
+```
+Q   W   F   P   G     J   L   U   Y   ;
+A   R   S   T   D     H   N   E   I   O
+Z   X   C   V   B     K   M   ,   .   /
+```
+
+Same home-row mod positions as DVORAK: A R S T left / N E I O right. Thumb keys are `&trans`.
+
+### COLEMAK-DH (layer 6) — toggled alternative
+
+```
+Q   W   F   P   B     J   L   U   Y   ;
+A   R   S   T   G     M   N   E   I   O
+Z   X   C   D   V     K   H   ,   .   /
+```
+
+Mod-DH variant: B/G swap on rows 1–2, D/H move to row 3. Same HRM positions as Colemak. Thumb keys are `&trans`.
+
 ### LOWER (layer 2) — symbols, arrows, F-keys
 
 ```
@@ -91,12 +113,14 @@ GUI ALT CTL SFT  -     -  SFT CTL ALT GUI
 ### ADJUST (layer 4) — Bluetooth, media, system
 
 ```
- -    -    -    -    -       -     -     -     -     -
+CMK  CDH   -    -    -       -     -     -     -     -
 TOG  BT2  BT1  BT0  BTCLR  C_PP  VOLU  VOLD  NEXT  PREV
 BOOT RST   -    -   SOFF    -     -     -    RST   BOOT
 ```
 
-`TOG` = `&tog QWERTY` (toggles layer 1 on/off)
+`TOG` = `&tog QWERTY`, `CMK` = `&tog COLEMAK`, `CDH` = `&tog COLEMAKDH`
+
+Only one alternative layout should be active at a time — higher layer number wins if multiple are toggled on.
 
 ## Making Common Changes
 
@@ -138,6 +162,8 @@ Commit after each completed logical task — do not batch unrelated changes. Eac
 1. Cover one change (one layer edit, one config flag, one refactor)
 2. Pass the 36-binding verification before committing
 3. Use the `.gitmessage` template format: imperative title + one-line why
+
+Note: `/build` pushes commits but does **not** auto-commit — stage and commit changes first or the push will be a no-op.
 
 ## Verification
 
