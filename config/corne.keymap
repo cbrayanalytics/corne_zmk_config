@@ -12,9 +12,9 @@
 #define QWERTY    1
 #define LOWER     2
 #define RAISE     3
-#define ADJUST    4
-#define COLEMAK   5
-#define COLEMAKDH 6
+#define COLEMAK   4
+#define COLEMAKDH 5
+#define ADJUST    6
 
 &mt {
     tapping-term-ms = <200>;
@@ -92,21 +92,6 @@
                         >;
                 };
 
-                adjust_layer {
-                        display-name = "Adjust";
-// -----------------------------------------------------------------------------------------
-// |  CMK  |  CDH  |         |         |         |   |         |         |         |         |         |
-// | QWERTY| BT SEL2| BT SEL1| BT SEL0 | BT CLR  |   |  C_PP   | VOL UP  | VOL DN  | C_NEXT  | C_PREV  |
-// |  BOOT |  RESET |         |         | SOFT_OFF|   |         |         |         |  RESET  |  BOOT   |
-//                     |         |         |         |   |         |         |         |
-                        bindings = <
-   &tog COLEMAK      &tog COLEMAKDH    &none             &none             &none                 &none             &none             &none             &none             &none
-   &tog QWERTY       &bt BT_SEL 2      &bt BT_SEL 1      &bt BT_SEL 0      &bt BT_CLR            &kp C_PP          &kp C_VOL_UP      &kp C_VOL_DN      &kp C_NEXT        &kp C_PREV
-   &bootloader       &sys_reset        &none             &none             &soft_off             &none             &none             &none             &sys_reset        &bootloader
-                                       &trans            &trans            &trans                &trans            &trans            &trans
-                        >;
-                };
-
                 colemak_layer {
                         display-name = "Colemak";
 // -----------------------------------------------------------------------------------------
@@ -134,6 +119,21 @@
    &mt LGUI A     &mt LALT R     &mt LCTRL S    &mt LSHIFT T   &kp G        &kp M      &mt RSHIFT N   &mt RCTRL E    &mt RALT I   &mt RGUI O
    &kp Z          &kp X          &kp C          &kp D          &kp V        &kp K      &kp H          &kp COMMA      &kp DOT      &kp FSLH
                                  &trans         &trans         &trans       &trans     &trans         &trans
+                        >;
+                };
+
+                adjust_layer {
+                        display-name = "Adjust";
+// -----------------------------------------------------------------------------------------
+// |  CMK  |  CDH  |         |         |         |   |         |         |         |         |         |
+// | QWERTY| BT SEL2| BT SEL1| BT SEL0 | BT CLR  |   |  C_PP   | VOL UP  | VOL DN  | C_NEXT  | C_PREV  |
+// |  BOOT |  RESET |         |         | SOFT_OFF|   |         |         |         |  RESET  |  BOOT   |
+//                     |         |         |         |   |         |         |         |
+                        bindings = <
+   &tog COLEMAK      &tog COLEMAKDH    &none             &none             &none                 &none             &none             &none             &none             &none
+   &tog QWERTY       &bt BT_SEL 2      &bt BT_SEL 1      &bt BT_SEL 0      &bt BT_CLR            &kp C_PP          &kp C_VOL_UP      &kp C_VOL_DN      &kp C_NEXT        &kp C_PREV
+   &bootloader       &sys_reset        &none             &none             &soft_off             &none             &none             &none             &sys_reset        &bootloader
+                                       &trans            &trans            &trans                &trans            &trans            &trans
                         >;
                 };
 
