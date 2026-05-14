@@ -31,15 +31,17 @@ To bump the ZMK version: change `revision` in `config/west.yml`.
 
 ## Layer Map
 
+> **Layer ordering rule:** ADJUST must always be the highest layer number. Toggleable layout layers (QWERTY, COLEMAK, COLEMAKDH) have higher ZMK priority than any lower-numbered layer. If ADJUST is not the top layer, its toggle keys become unreachable while an alternate layout is active. Current order: DVORAK=0, QWERTY=1, LOWER=2, RAISE=3, COLEMAK=4, COLEMAKDH=5, ADJUST=6.
+
 | # | Name | Access |
 |---|------|--------|
 | 0 | DVORAK | Default |
 | 1 | QWERTY | `&tog QWERTY` on ADJUST row 2 col 0 |
 | 2 | LOWER | Hold left-thumb middle key |
 | 3 | RAISE | Hold right-thumb SPACE |
-| 4 | ADJUST | Hold right-thumb BSPC |
-| 5 | COLEMAK | `&tog COLEMAK` on ADJUST row 1 col 0 |
-| 6 | COLEMAKDH | `&tog COLEMAKDH` on ADJUST row 1 col 1 |
+| 4 | COLEMAK | `&tog COLEMAK` on ADJUST row 1 col 0 |
+| 5 | COLEMAKDH | `&tog COLEMAKDH` on ADJUST row 1 col 1 |
+| 6 | ADJUST | Hold right-thumb BSPC |
 
 ### Thumb cluster
 
