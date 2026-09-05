@@ -73,9 +73,9 @@ A   S   D   F   G     H   J   K   L   ;
 Z   X   C   V   B     N   M   ,   .   /
 ```
 
-Same home-row mods as DVORAK (ASDF left / JKL; right). Thumb keys are `&trans` — LOWER/RAISE/ADJUST momentary layers from DVORAK still work while QWERTY is active because they have higher layer numbers (2/3/4).
+Same home-row mods as DVORAK (ASDF left / JKL; right). Thumb keys are `&trans` — LOWER/RAISE/ADJUST momentary layers from DVORAK still work while QWERTY is active because they have higher layer numbers (2/3/6).
 
-### COLEMAK (layer 5) — toggled alternative
+### COLEMAK (layer 4) — toggled alternative
 
 ```
 Q   W   F   P   G     J   L   U   Y   ;
@@ -85,7 +85,7 @@ Z   X   C   V   B     K   M   ,   .   /
 
 Same home-row mod positions as DVORAK: A R S T left / N E I O right. Thumb keys are `&trans`.
 
-### COLEMAK-DH (layer 6) — toggled alternative
+### COLEMAK-DH (layer 5) — toggled alternative
 
 ```
 Q   W   F   P   B     J   L   U   Y   ;
@@ -112,7 +112,7 @@ GUI ALT CTL SFT  -     -  SFT CTL ALT GUI
                        ENT
 ```
 
-### ADJUST (layer 4) — Bluetooth, media, system
+### ADJUST (layer 6) — Bluetooth, media, system
 
 ```
 CMK  CDH   -    -    -       -     -     -     -     -
