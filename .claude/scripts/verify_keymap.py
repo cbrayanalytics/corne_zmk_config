@@ -7,9 +7,15 @@ try:
     with open(KEYMAP) as f:
         content = f.read()
 except FileNotFoundError:
-    sys.exit(0)
+    print(f"Keymap error — {KEYMAP} not found (run from the repo root)")
+    sys.exit(1)
 
 layers = re.findall(r'display-name = "([^"]+)".*?bindings = <(.*?)>;', content, re.DOTALL)
+
+if not layers:
+    print(f"Keymap error — no layers found in {KEYMAP}")
+    sys.exit(1)
+
 errors = []
 
 for name, block in layers:
