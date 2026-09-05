@@ -58,7 +58,7 @@ A   O   E   U   I     D   H   T   N   S
 ;   Q   J   K   X     B   M   W   V   Z
 ```
 
-Home-row mods (balanced, tapping-term 200ms, require-prior-idle 200ms):
+Home-row mods (`&mt`: balanced, tapping-term 200ms, require-prior-idle 250ms, quick-tap 175ms):
 
 ```
 Left pinky→index:  A=LGUI  O=LALT  E=LCTRL  U=LSHIFT
@@ -136,10 +136,38 @@ Replace `&kp KEY` with `&mt MODIFIER KEY`. Available modifiers: `LGUI LALT LCTRL
 
 ### Change mod-tap timing
 
-Edit the `&mt` or `&lt` block near the top of `corne.keymap`:
+`&mt` and `&lt` are tuned **separately and must stay that way** — they solve opposite
+problems. `&mt` drives home-row mods, where the risk is a fast letter tap misfiring as a
+modifier. `&lt` drives the thumb layer keys (`&lt RAISE SPACE`, `&lt ADJUST BSPC`), where
+the risk is losing a space. Do not copy settings between the two blocks.
+
+Current values in `corne.keymap`:
+
+| Property | `&mt` (home row) | `&lt` (thumbs) |
+|----------|------------------|----------------|
+| `tapping-term-ms` | 200 | 200 |
+| `flavor` | `balanced` | `tap-preferred` |
+| `require-prior-idle-ms` | 250 | *(none — see warning)* |
+| `quick-tap-ms` | 175 | 175 |
+
+Parameters:
 - `tapping-term-ms` — hold vs tap threshold (ms)
-- `require-prior-idle-ms` — prevents accidental mod activation during fast typing
-- `flavor` — `"balanced"` resolves ambiguity on key release; `"tap-preferred"` favors taps
+- `require-prior-idle-ms` — if the key is pressed within this window of the *previous*
+  keypress, it resolves as a **tap immediately** and the hold is never considered
+- `quick-tap-ms` — re-pressing within this window after a tap always taps (enables key repeat)
+- `flavor` — `"balanced"` resolves a hold if another key is pressed *and released* during
+  the hold; `"tap-preferred"` only holds once the tapping term expires, so rollover can
+  never steal the tap
+
+> **Never set `require-prior-idle-ms` on `&lt`.** During normal typing the previous
+> keypress is almost always under the threshold, so every thumb press force-taps and the
+> layer becomes **completely unreachable**. This silently broke RAISE and ADJUST until
+> commit `28447b6`. The setting is correct on `&mt` (home-row keys are surrounded by fast
+> typing) and wrong on thumb keys.
+>
+> If you remove it from `&lt`, `flavor` **must** be `tap-preferred`. Under `balanced`,
+> `require-prior-idle-ms` was the only thing protecting the space tap during rollover —
+> dropping it while leaving `balanced` in place makes spaces vanish constantly.
 
 ### Re-enable RGB underglow
 
