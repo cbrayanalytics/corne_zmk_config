@@ -16,7 +16,26 @@ ZMK firmware configuration for a **Keebmaker Corne 3x5** (36-key wireless split 
 
 Firmware builds automatically on push via `.github/workflows/build.yml` (delegates to `zmkfirmware/zmk@v0.3`). No local build required. After pushing, check the Actions tab on GitHub for the `.uf2` artifacts.
 
-To bump the ZMK version: change `revision` in `config/west.yml`.
+### Bumping the ZMK version
+
+The version is pinned in **two** places and they must be changed together:
+
+| File | Line | Pin |
+|------|------|-----|
+| `config/west.yml` | `revision:` under `defaults` | source tree ZMK builds from |
+| `.github/workflows/build.yml` | `uses: ...build-user-config.yml@<ref>` | the CI workflow that builds it |
+
+Changing only `west.yml` leaves the old workflow building the new tree, which
+surfaces as a confusing build failure rather than a clear version error.
+
+Current pin: `v0.3` in both. As of 2026-09-05 that is the newest release —
+`v0.3.0` (2025-08-01) is the latest tag, and `v0.4.0` exists only as an open
+upstream milestone. Check
+<https://github.com/zmkfirmware/zmk/releases> before assuming a newer one exists.
+
+A minor bump can change hold-tap defaults and other behavior internals, so do it
+on a branch and re-run the checks in **Verification** plus a physical test of the
+thumb keys (tap for SPACE/BSPC, hold for RAISE/ADJUST) after flashing.
 
 ## Key Files
 
