@@ -77,7 +77,7 @@ A   O   E   U   I     D   H   T   N   S
 ;   Q   J   K   X     B   M   W   V   Z
 ```
 
-Home-row mods (`&mt`: balanced, tapping-term 200ms, require-prior-idle 250ms, quick-tap 175ms):
+Home-row mods (`&hml` / `&hmr` — positional, see **Change mod-tap timing**):
 
 ```
 Left pinky→index:  A=LGUI  O=LALT  E=LCTRL  U=LSHIFT
@@ -155,19 +155,47 @@ Replace `&kp KEY` with `&mt MODIFIER KEY`. Available modifiers: `LGUI LALT LCTRL
 
 ### Change mod-tap timing
 
-`&mt` and `&lt` are tuned **separately and must stay that way** — they solve opposite
-problems. `&mt` drives home-row mods, where the risk is a fast letter tap misfiring as a
-modifier. `&lt` drives the thumb layer keys (`&lt RAISE SPACE`, `&lt ADJUST BSPC`), where
-the risk is losing a space. Do not copy settings between the two blocks.
+Home-row mods use the named behaviors `&hml` / `&hmr` (defined in the `behaviors`
+node); thumb layer keys use the global `&lt` override. They are tuned **separately
+and must stay that way** — they solve opposite problems. The home-row risk is a fast
+letter tap misfiring as a modifier; the thumb risk is losing a space. Do not copy
+settings between them.
 
 Current values in `corne.keymap`:
 
-| Property | `&mt` (home row) | `&lt` (thumbs) |
-|----------|------------------|----------------|
-| `tapping-term-ms` | 200 | 200 |
+| Property | `&hml` / `&hmr` (home row) | `&lt` (thumbs) |
+|----------|----------------------------|----------------|
+| `tapping-term-ms` | 280 | 200 |
 | `flavor` | `balanced` | `tap-preferred` |
-| `require-prior-idle-ms` | 250 | *(none — see warning)* |
+| `require-prior-idle-ms` | 150 | *(none — see warning)* |
 | `quick-tap-ms` | 175 | 175 |
+| `hold-trigger-key-positions` | opposite hand | — |
+| `hold-trigger-on-release` | yes | — |
+
+**Positional home-row mods.** `hold-trigger-key-positions` lists the opposite hand, so
+a mod only engages when the next key is on the other hand — a same-hand roll resolves
+as a tap and can never misfire. Positions are 0-indexed in keymap binding order:
+
+```
+left  hand = 0-4, 10-14, 20-24, 30-32
+right hand = 5-9, 15-19, 25-29, 33-35
+```
+
+The home-row mods sit at 10-13 (left) and 16-19 (right) in **all four** layout layers,
+so one pair of behaviors covers Dvorak, QWERTY, Colemak and Colemak-DH. Adding a
+layout layer needs no new behaviors as long as its mods stay at those positions.
+
+> **Consequence for shortcuts:** a modifier will not fire for a same-hand chord. In
+> Dvorak, `Cmd+C`, `Cmd+V` and `Cmd+Z` work with the left `A`=GUI because C/V/Z are
+> right-hand keys — but `Cmd+Q`, `Cmd+X` and `Cmd+A` need the right-hand `S`=GUI.
+> This is inherent to positional mods, not a bug.
+
+`hold-trigger-on-release` defers the position check to release, which is what still
+allows stacking modifiers on the same hand (e.g. Ctrl+Shift).
+
+Prefer adding named behaviors over overriding a global like `&mt` or `&lt`: a global
+override silently applies to **every** use of that behavior, which is how tuning the
+thumb keys once broke SPACE.
 
 Parameters:
 - `tapping-term-ms` — hold vs tap threshold (ms)
