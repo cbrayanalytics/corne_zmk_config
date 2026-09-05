@@ -2,5 +2,16 @@ name: Build ZMK firmware
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
+  verify-keymap:
+    name: Verify keymap binding counts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check every layer has exactly 36 bindings
+        run: python3 .claude/scripts/verify_keymap.py
+
+  # Gated on verify-keymap so a bad keymap fails fast instead of burning a
+  # full firmware build.
   build:
+    needs: verify-keymap
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3
