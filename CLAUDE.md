@@ -127,19 +127,22 @@ F1  F2  F3  F4  F5    F6  F7  F8  F9  F10
 ```
 1   2   3   4   5     6   7   8   9   0
 GUI ALT CTL SFT  -     -  SFT CTL ALT GUI
--   HOM PUP PDN END    -   -   -   -   -
+CAPSW HOM PUP PDN END  -   -   -   -   -
                        ENT
 ```
 
 ### ADJUST (layer 6) — Bluetooth, media, system
 
 ```
-CMK  CDH   -    -    -       -     -     -     -     -
+CMK  CDH  BT3  BT4   -       -     -     -     -     -
 TOG  BT2  BT1  BT0  BTCLR  C_PP  VOLU  VOLD  NEXT  PREV
 BOOT RST   -    -   SOFF    -     -     -    RST   BOOT
 ```
 
-`TOG` = `&tog QWERTY`, `CMK` = `&tog COLEMAK`, `CDH` = `&tog COLEMAKDH`
+`TOG` = `&tog QWERTY`, `CMK` = `&tog COLEMAK`, `CDH` = `&tog COLEMAKDH`,
+`BT3`/`BT4` = `&bt BT_SEL 3` / `&bt BT_SEL 4`. All five BT profiles are reachable.
+
+`CAPSW` on RAISE row 3 col 0 is `&caps_word` — shifts until a word boundary.
 
 Only one alternative layout should be active at a time — higher layer number wins if multiple are toggled on.
 
