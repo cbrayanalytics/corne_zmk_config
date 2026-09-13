@@ -1,6 +1,6 @@
 # Corne ZMK Config — QWERTY
 
-ZMK firmware configuration for a **Keebmaker Corne 3x5** (36-key wireless split keyboard) using **Nice!Nano v2** microcontrollers. QWERTY is the default layout with a toggleable Dvorak layer.
+ZMK firmware configuration for a **Keebmaker Corne 3x5** (36-key wireless split keyboard) using **Nice!Nano v2** microcontrollers. QWERTY is the default layout with selectable Dvorak, Colemak, and Colemak-DH alternatives.
 
 ## Hardware
 
@@ -50,16 +50,16 @@ thumb keys (tap for SPACE/BSPC, hold for RAISE/ADJUST) after flashing.
 
 ## Layer Map
 
-> **Layer ordering rule:** ADJUST must always be the highest layer number. Toggleable layout layers (DVORAK, COLEMAK, COLEMAKDH) have higher ZMK priority than any lower-numbered layer. If ADJUST is not the top layer, its toggle keys become unreachable while an alternate layout is active. Current order: QWERTY=0, DVORAK=1, LOWER=2, RAISE=3, COLEMAK=4, COLEMAKDH=5, ADJUST=6.
+> **Layer ordering rule:** ADJUST must always be the highest layer number. Otherwise its layout-selection keys become unreachable while an alternate layout is active. Current order: QWERTY=0, DVORAK=1, LOWER=2, RAISE=3, COLEMAK=4, COLEMAKDH=5, ADJUST=6.
 
 | # | Name | Access |
 |---|------|--------|
-| 0 | QWERTY | Default |
-| 1 | DVORAK | `&tog DVORAK` on ADJUST row 2 col 0 |
+| 0 | QWERTY | Default; `&to QWERTY` on ADJUST row 1 col 4 |
+| 1 | DVORAK | `&to DVORAK` on ADJUST row 2 col 0 |
 | 2 | LOWER | Hold left-thumb middle key |
 | 3 | RAISE | Hold right-thumb SPACE |
-| 4 | COLEMAK | `&tog COLEMAK` on ADJUST row 1 col 0 |
-| 5 | COLEMAKDH | `&tog COLEMAKDH` on ADJUST row 1 col 1 |
+| 4 | COLEMAK | `&to COLEMAK` on ADJUST row 1 col 0 |
+| 5 | COLEMAKDH | `&to COLEMAKDH` on ADJUST row 1 col 1 |
 | 6 | ADJUST | Hold right-thumb BSPC |
 
 ### Thumb cluster
@@ -84,7 +84,7 @@ Left pinky→index:  A=LGUI  S=LALT  D=LCTRL  F=LSHIFT
 Right index→pinky: J=RSHIFT  K=RCTRL  L=RALT  ;=RGUI
 ```
 
-### DVORAK (layer 1) — toggled alternative
+### DVORAK (layer 1) — selectable alternative
 
 ```
 '   ,   .   P   Y     F   G   C   R   L
@@ -94,7 +94,7 @@ A   O   E   U   I     D   H   T   N   S
 
 Same home-row mods as QWERTY (AOEU left / HTNS right). Thumb keys are `&trans` — LOWER/RAISE/ADJUST momentary layers from QWERTY still work while Dvorak is active because they have higher layer numbers (2/3/6).
 
-### COLEMAK (layer 4) — toggled alternative
+### COLEMAK (layer 4) — selectable alternative
 
 ```
 Q   W   F   P   G     J   L   U   Y   ;
@@ -104,7 +104,7 @@ Z   X   C   V   B     K   M   ,   .   /
 
 Same home-row mod positions as DVORAK: A R S T left / N E I O right. Thumb keys are `&trans`.
 
-### COLEMAK-DH (layer 5) — toggled alternative
+### COLEMAK-DH (layer 5) — selectable alternative
 
 ```
 Q   W   F   P   B     J   L   U   Y   ;
@@ -134,17 +134,16 @@ CAPSW HOM PUP PDN END  -   -   -   -   -
 ### ADJUST (layer 6) — Bluetooth, media, system
 
 ```
-CMK  CDH  BT3  BT4   -       -     -     -     -     -
-TOG  BT2  BT1  BT0  BTCLR  C_PP  VOLU  VOLD  NEXT  PREV
+CMK  CDH  BT3  BT4  QWERTY   -     -     -     -     -
+DVR  BT2  BT1  BT0  BTCLR  C_PP  VOLU  VOLD  NEXT  PREV
 BOOT RST   -    -   SOFF    -     -     -    RST   BOOT
 ```
 
-`TOG` = `&tog DVORAK`, `CMK` = `&tog COLEMAK`, `CDH` = `&tog COLEMAKDH`,
-`BT3`/`BT4` = `&bt BT_SEL 3` / `&bt BT_SEL 4`. All five BT profiles are reachable.
+`QWERTY`, `DVR`, `CMK`, and `CDH` select their named layout with `&to`, which turns off every other alternate layout. `BT3`/`BT4` = `&bt BT_SEL 3` / `&bt BT_SEL 4`. All five BT profiles are reachable.
 
 `CAPSW` on RAISE row 3 col 0 is `&caps_word` — shifts until a word boundary.
 
-Only one alternative layout should be active at a time — higher layer number wins if multiple are toggled on.
+Layout selection is exclusive, so changing layouts cannot leave another alternate layout active in the background.
 
 ## Making Common Changes
 
