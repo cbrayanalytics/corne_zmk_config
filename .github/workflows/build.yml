@@ -7,8 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - name: Check every layer has exactly 36 bindings
-        run: python3 .claude/scripts/verify_keymap.py
+      - name: Verify keymap invariants
+        run: |
+          python3 .claude/scripts/test_verify_keymap.py
+          python3 .claude/scripts/verify_keymap.py
 
   # Gated on verify-keymap so a bad keymap fails fast instead of burning a
   # full firmware build.
